@@ -27,7 +27,12 @@ function toggleAlarm() {
     chrome.alarms.create('potato powers activate', {
       "periodInMinutes": period
     });
-     chrome.browserAction.setIcon({
+
+    chrome.browserAction.setBadgeText({
+      text: (ticks).toString()
+    });
+
+    chrome.browserAction.setIcon({
       path: "img/potato.svg"
     })
     alarmOn = true;
@@ -44,9 +49,9 @@ chrome.browserAction.onClicked.addListener(toggleAlarm);
 function handleTick() {
   console.log(ticks);
   chrome.browserAction.setBadgeText({
-    text: (ticks--).toString()
+    text: (--ticks).toString()
   });
-  if (ticks < 0){
+  if (ticks === 0){
     resetAlarm();
   }
 }

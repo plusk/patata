@@ -1,0 +1,13 @@
+@import url(normalize.css);
+
+div {
+  padding: 1rem;
+}
+
+h1 {
+  margin: 0 0 0.5rem;
+}
+
+p {
+  margin: 0;
+}

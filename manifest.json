@@ -2,7 +2,6 @@
   "manifest_version": 2,
   "name": "Patata Timer",
   "version": "0.1",
-
   "description": "Pomodoro timer, but not, but still.",
   "icons": {
     "16": "img/icon16.png",
@@ -11,6 +10,10 @@
     "48": "img/icon48.png",
     "128": "img/icon128.png"
   },
+  "permissions": [
+    "alarms",
+    "storage"
+  ],
   "browser_action": {
     "default_icon": {
       "16": "img/icon_off16.png",
@@ -22,8 +25,14 @@
     "default_title": "Patata Timer"
   },
   "background": {
-    "scripts": ["events.js"],
+    "scripts": [
+      "events.js"
+    ],
     "persistent": false
+  },
+  "options_ui": {
+    "page": "options.html",
+    "chrome_style": true
   },
   "commands": {
     "toggle-timer": {
@@ -33,10 +42,5 @@
       },
       "description": "Toggle timer on/off"
     }
-  },
-  "permissions": ["alarms", "storage"],
-  "options_ui": {
-    "page": "options.html",
-    "chrome_style": true
   }
 }

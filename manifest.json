@@ -13,14 +13,17 @@
   },
   "browser_action": {
     "default_icon": {
-      "16": "img/icon16.png",
-      "24": "img/icon24.png",
-      "32": "img/icon32.png",
-      "48": "img/icon48.png",
-      "128": "img/icon128.png"
+      "16": "img/icon_off16.png",
+      "24": "img/icon_off24.png",
+      "32": "img/icon_off32.png",
+      "48": "img/icon_off48.png",
+      "128": "img/icon_off128.png"
     },
-    "default_title": "Patata Timer",
-    "default_popup": "popup.html"
+    "default_title": "Patata Timer"
+  },
+  "background": {
+    "scripts": ["eventTest.js"],
+    "persistent": false
   },
   "commands": {
     "toggle-timer": {
@@ -30,5 +33,6 @@
       },
       "description": "Toggle timer on/off"
     }
-  }
+  },
+  "permissions": ["alarms"]
 }

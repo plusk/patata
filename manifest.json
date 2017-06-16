@@ -22,7 +22,7 @@
     "default_title": "Patata Timer"
   },
   "background": {
-    "scripts": ["eventTest.js"],
+    "scripts": ["events.js"],
     "persistent": false
   },
   "commands": {

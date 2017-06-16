@@ -34,7 +34,7 @@
       "description": "Toggle timer on/off"
     }
   },
-  "permissions": ["alarms"],
+  "permissions": ["alarms", "storage"],
   "options_ui": {
     "page": "options.html",
     "chrome_style": true

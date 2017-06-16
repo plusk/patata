@@ -2,3 +2,12 @@ label {
   display: block;
   margin-bottom: 0.5rem;
 }
+
+#save {
+  margin-right: 0.5rem;
+}
+
+#status {
+  transition: 1s;
+  display: inline;
+}

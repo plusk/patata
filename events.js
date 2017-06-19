@@ -52,6 +52,13 @@ function toggleTimer () {
   }
 }
 
+// Make a new tab with a countdown timer for the break
+function startBreak () {
+  chrome.tabs.create({
+    url: chrome.runtime.getURL('countdown.html')
+  })
+}
+
 // Update badge, turn off alarm if needed
 function handleTick () {
   console.log(ticks)
@@ -60,6 +67,7 @@ function handleTick () {
   })
   if (ticks === 0) {
     resetTimer()
+    startBreak()
   }
 }
 

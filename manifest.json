@@ -14,6 +14,12 @@
     "alarms",
     "storage"
   ],
+  "background": {
+    "scripts": [
+      "events.js"
+    ],
+    "persistent": false
+  },
   "browser_action": {
     "default_icon": {
       "16": "img/icon_off16.png",
@@ -23,12 +29,6 @@
       "128": "img/icon_off128.png"
     },
     "default_title": "Patata Timer"
-  },
-  "background": {
-    "scripts": [
-      "events.js"
-    ],
-    "persistent": false
   },
   "options_ui": {
     "page": "options.html",

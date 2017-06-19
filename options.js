@@ -17,7 +17,6 @@ function save_options () {
 
 // Get stored options
 function restore_options () {
-
   chrome.storage.sync.get({
     sessionLength: 25
   }, function (data) {

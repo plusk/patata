@@ -1,23 +1,23 @@
 const period = 0.01
 
-const maxTicks = 25
+const maxTicks = 5
 var ticks = maxTicks
 
-var alarmOn = false
+var alarmed = false
 
 /*
-// Trying to get settings, doesn't seem to work yet
-function syncTicks () {
-  chrome.storage.sync.get({
-      sessionLength: 25
-    }, function (data) {
-      ticks = data.sessionLength
-    }
-  )
-}
-*/
+ // Trying to get settings, doesn't seem to work yet
+ function syncTicks () {
+ chrome.storage.sync.get({
+ sessionLength: 25
+ }, function (data) {
+ ticks = data.sessionLength
+ }
+ )
+ }
+ */
 
-function startAlarm () {
+function startTimer () {
   chrome.alarms.create('timer', {
     'periodInMinutes': period
   })
@@ -27,11 +27,11 @@ function startAlarm () {
   chrome.browserAction.setIcon({
     path: 'img/potato.svg'
   })
-  alarmOn = true
+  alarmed = true
 }
 
-function resetAlarm () {
-  ticks = maxTicks;
+function resetTimer () {
+  ticks = maxTicks
   chrome.alarms.clear('timer', function () {
     chrome.browserAction.setBadgeText({
       text: ''
@@ -39,16 +39,16 @@ function resetAlarm () {
     chrome.browserAction.setIcon({
       path: 'img/potato_off.svg'
     })
-    alarmOn = false
+    alarmed = false
   })
 }
 
-function toggleAlarm () {
-  if (!alarmOn) {
-    startAlarm()
+function toggleTimer () {
+  if (!alarmed) {
+    startTimer()
   }
   else {
-    resetAlarm()
+    resetTimer()
   }
 }
 
@@ -59,7 +59,7 @@ function handleTick () {
     text: (--ticks).toString()
   })
   if (ticks === 0) {
-    resetAlarm()
+    resetTimer()
   }
 }
 
@@ -67,4 +67,4 @@ function handleTick () {
 chrome.alarms.onAlarm.addListener(handleTick)
 
 // Turn on/off alarm
-chrome.browserAction.onClicked.addListener(toggleAlarm)
+chrome.browserAction.onClicked.addListener(toggleTimer)

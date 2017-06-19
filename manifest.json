@@ -12,7 +12,8 @@
   },
   "permissions": [
     "alarms",
-    "storage"
+    "storage",
+    "tabs"
   ],
   "background": {
     "scripts": [

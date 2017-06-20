@@ -2,19 +2,22 @@ html {
   width: 100%;
   height: 100%;
   font-family: sans-serif;
+  color: white;
   background: #607d8b url("background.svg") center/contain no-repeat fixed;
 }
 
-button {
+#divCenter {
   position: fixed;
   top: 50%;
   left: 50%;
+  transform: translate(-50%, -50%);
+}
 
+#btnGo {
   width: 5rem;
   height: 5rem;
-  transform: translate(-50%, -50%);
 
-  color: white;
+  color: inherit;
   background-color: inherit;
 
   padding: 1rem;
@@ -32,4 +35,9 @@ button:hover {
 
 button:focus {
   outline: none;
+}
+
+p {
+  font-size: 4rem;
+  user-select: none;
 }

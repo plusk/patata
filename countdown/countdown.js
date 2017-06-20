@@ -4,9 +4,10 @@ var divCenter = document.getElementById('divCenter')
 var btnGo = document.getElementById('btnGo')
 var timer = document.createElement('p')
 
-function tickTimer (length) {
-  var min = parseInt(length / 60, 10)
-  var sec = parseInt(length % 60, 10)
+// Convert remaining duration to an output string
+function toTimerText (duration) {
+  var min = parseInt(duration / 60, 10)
+  var sec = parseInt(duration % 60, 10)
 
   min = min < 10 ? '0' + min : min
   sec = sec < 10 ? '0' + sec : sec
@@ -15,18 +16,22 @@ function tickTimer (length) {
 }
 
 function startBreak () {
+  // Replace button with timer
   divCenter.removeChild(btnGo)
   divCenter.appendChild(timer)
 
-  var length = 5
+  var duration = 5
 
-  timer.textContent = tickTimer(length)
-  length--
+  // Initial string and tick
+  timer.textContent = toTimerText(duration)
+  duration--
 
+  // One tick per second
   var tick = setInterval(function () {
-    timer.textContent = tickTimer(length)
+    timer.textContent = toTimerText(duration)
 
-    if (--length < 0) {
+    // Stop ticking at 0 and close the tab
+    if (--duration < 0) {
       clearTimeout(tick)
       close()
     }
@@ -34,8 +39,10 @@ function startBreak () {
 
 }
 
+// Go fullscreen and start break when ready to go
 btnGo.onclick = function () {
 
+  // Browser compatibility filler
   if (docElement.requestFullscreen) {
     docElement.requestFullscreen()
   }
@@ -48,6 +55,5 @@ btnGo.onclick = function () {
   else if (docElement.msRequestFullscreen) {
     docElement.msRequestFullscreen()
   }
-
   startBreak()
 }

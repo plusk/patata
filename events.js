@@ -17,6 +17,7 @@ var alarmed = false
  }
  */
 
+// Start timer with alarm, badge and icon
 function startTimer () {
   chrome.alarms.create('timer', {
     'periodInMinutes': period
@@ -30,6 +31,7 @@ function startTimer () {
   alarmed = true
 }
 
+// Reset timer to square one
 function resetTimer () {
   ticks = maxTicks
   chrome.alarms.clear('timer', function () {
@@ -43,15 +45,6 @@ function resetTimer () {
   })
 }
 
-function toggleTimer () {
-  if (!alarmed) {
-    startTimer()
-  }
-  else {
-    resetTimer()
-  }
-}
-
 // Make a new tab with a countdown timer for the break
 function startBreak () {
   chrome.tabs.create({
@@ -61,7 +54,6 @@ function startBreak () {
 
 // Update badge, turn off alarm if needed
 function handleTick () {
-  console.log(ticks)
   chrome.browserAction.setBadgeText({
     text: (--ticks).toString()
   })
@@ -74,5 +66,12 @@ function handleTick () {
 // When alarm ticks, handle it
 chrome.alarms.onAlarm.addListener(handleTick)
 
-// Turn on/off alarm
-chrome.browserAction.onClicked.addListener(toggleTimer)
+// When clicking extension, either start or reset timer
+chrome.browserAction.onClicked.addListener(function () {
+  if (!alarmed) {
+    startTimer()
+  }
+  else {
+    resetTimer()
+  }
+})

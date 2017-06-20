@@ -70,10 +70,5 @@ chrome.browserAction.onClicked.addListener(function () {
   alarmed ? resetTimer() : setTimer()
 })
 
-// Message sent to extension
-chrome.runtime.onMessage.addListener(function (request) {
-  // If message is a reset request
-  if (request.reset) {
-    resetTimer()
-  }
-})
+// Reset timer if options change
+chrome.storage.onChanged.addListener(resetTimer)

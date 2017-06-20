@@ -1,8 +1,3 @@
-// Clear timer when options are saved
-function clearTimer () {
-  chrome.runtime.sendMessage({reset: true})
-}
-
 // Set options
 function saveOptions () {
   var sessionLength = document.getElementById('sessionLength').value
@@ -16,8 +11,6 @@ function saveOptions () {
       setTimeout(function () {
         status.textContent = ''
       }, 2000)
-
-      clearTimer()
     }
   )
 }

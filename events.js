@@ -1,21 +1,20 @@
+// Period in minutes
 const period = 0.01
 
-const maxTicks = 5
-var ticks = maxTicks
+// Will be overwritten, just a default value
+var maxTicks = 25
+var ticks
 
 var alarmed = false
 
-/*
- // Trying to get settings, doesn't seem to work yet
- function syncTicks () {
- chrome.storage.sync.get({
- sessionLength: 25
- }, function (data) {
- ticks = data.sessionLength
- }
- )
- }
- */
+// Set ticks based on settings and move on to start the timer
+function setTimer () {
+  chrome.storage.sync.get('sessionLength', function (data) {
+    maxTicks = data.sessionLength
+    ticks = maxTicks
+    startTimer()
+  })
+}
 
 // Start timer with alarm, badge and icon
 function startTimer () {
@@ -68,10 +67,5 @@ chrome.alarms.onAlarm.addListener(handleTick)
 
 // When clicking extension, either start or reset timer
 chrome.browserAction.onClicked.addListener(function () {
-  if (!alarmed) {
-    startTimer()
-  }
-  else {
-    resetTimer()
-  }
+  alarmed ? resetTimer() : setTimer()
 })

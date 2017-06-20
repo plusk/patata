@@ -28,16 +28,20 @@ html {
   font-size: 1rem;
 }
 
-button:hover {
+#btnGo:hover {
   color: #ffc107;
   border-color: #ffc107;
 }
 
-button:focus {
+#btnGo:focus {
   outline: none;
 }
 
 p {
   font-size: 4rem;
+}
+
+#btnGo, p {
   user-select: none;
+  cursor: default;
 }

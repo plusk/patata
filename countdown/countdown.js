@@ -20,7 +20,7 @@ function startBreak () {
   divCenter.removeChild(btnGo)
   divCenter.appendChild(timer)
 
-  var duration = 5
+  var duration = 30
 
   // Initial string and tick
   timer.textContent = toTimerText(duration)
@@ -37,6 +37,7 @@ function startBreak () {
     }
   }, 1000)
 
+  document.getElementById('main').className += ' activated'
 }
 
 // Go fullscreen and start break when ready to go

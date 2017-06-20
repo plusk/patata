@@ -3,7 +3,11 @@ html {
   height: 100%;
   font-family: sans-serif;
   color: white;
-  background: #607d8b url("/img/background.svg") center/contain no-repeat fixed;
+  background: #0097A7 url("/img/background.svg") center/contain no-repeat fixed;
+}
+
+.activated {
+  animation: colorchange 30s infinite;
 }
 
 #divCenter {
@@ -22,7 +26,7 @@ html {
 
   padding: 1rem;
 
-  border: 0.125rem solid white;
+  border: 0.25rem solid white;
   border-radius: 0.25rem;
 
   font-size: 1rem;
@@ -45,3 +49,86 @@ p {
   user-select: none;
   cursor: default;
 }
+
+#btnGo:before,
+#btnGo:after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 50%;
+  border: 0.0625rem solid rgba(255, 255, 255, 0.25);
+}
+
+#btnGo:before {
+  transform: scale(10);
+}
+
+#btnGo:after {
+  animation: ripple 5s ease-in infinite;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(10);
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes colorchange {
+  0% {
+    background-color: #0097A7;
+  }
+  7% {
+    background-color: #009688;
+  }
+  14% {
+    background-color: #43A047;
+  }
+  21% {
+    background-color: #689F38;
+  }
+  28% {
+    background-color: #AFB42B;
+  }
+  35% {
+    background-color: #FBC02D;
+  }
+  42% {
+    background-color: #FFA000;
+  }
+  49% {
+    background-color: #EF6C00;
+  }
+  56% {
+    background-color: #FF5722;
+  }
+  63% {
+    background-color: #EF5350;
+  }
+  70% {
+    background-color: #F06292;
+  }
+  77% {
+    background-color: #BA68C8;
+  }
+  84% {
+    background-color: #9575CD;
+  }
+  91% {
+    background-color: #7986CB;
+  }
+  98% {
+    background-color: #2196F3;
+  }
+  100% {
+    background-color: #039BE5;
+  }
+}
+

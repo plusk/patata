@@ -7,6 +7,10 @@ var ticks
 
 var alarmed = false
 
+chrome.browserAction.setBadgeBackgroundColor({
+  color: "#0097A7"
+})
+
 // Set ticks based on settings and move on to start the timer
 function setTimer () {
   chrome.storage.sync.get('sessionLength', function (data) {

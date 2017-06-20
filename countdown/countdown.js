@@ -2,7 +2,10 @@ var docElement = document.documentElement
 
 var divCenter = document.getElementById('divCenter')
 var btnGo = document.getElementById('btnGo')
+var divP = document.createElement('div')
+divP.setAttribute('id', 'divP')
 var timer = document.createElement('p')
+divP.appendChild(timer)
 
 // Convert remaining duration to an output string
 function toTimerText (duration) {
@@ -18,7 +21,7 @@ function toTimerText (duration) {
 function startBreak () {
   // Replace button with timer
   divCenter.removeChild(btnGo)
-  divCenter.appendChild(timer)
+  divCenter.appendChild(divP)
 
   var duration = 30
 

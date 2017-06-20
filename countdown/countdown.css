@@ -3,7 +3,7 @@ html {
   height: 100%;
   font-family: sans-serif;
   color: white;
-  background: #0097A7 url("/img/background.svg") center/contain no-repeat fixed;
+  background: #0097a7 url("/img/background.svg") center/contain no-repeat fixed;
 }
 
 .activated {
@@ -41,8 +41,18 @@ html {
   outline: none;
 }
 
+#divP {
+  width: 200px;
+  height: 200px;
+}
+
 p {
   font-size: 4rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
 }
 
 #btnGo, p {
@@ -83,52 +93,142 @@ p {
 
 @keyframes colorchange {
   0% {
-    background-color: #0097A7;
+    background-color: #0097a7;
   }
   7% {
     background-color: #009688;
   }
   14% {
-    background-color: #43A047;
+    background-color: #43a047;
   }
   21% {
-    background-color: #689F38;
+    background-color: #689f38;
   }
   28% {
-    background-color: #AFB42B;
+    background-color: #afb42b;
   }
   35% {
-    background-color: #FBC02D;
+    background-color: #fbc02d;
   }
   42% {
-    background-color: #FFA000;
+    background-color: #ffa000;
   }
   49% {
-    background-color: #EF6C00;
+    background-color: #ef6c00;
   }
   56% {
-    background-color: #FF5722;
+    background-color: #ff5722;
   }
   63% {
-    background-color: #EF5350;
+    background-color: #ef5350;
   }
   70% {
-    background-color: #F06292;
+    background-color: #f06292;
   }
   77% {
-    background-color: #BA68C8;
+    background-color: #ba68c8;
   }
   84% {
-    background-color: #9575CD;
+    background-color: #9575cd;
   }
   91% {
-    background-color: #7986CB;
+    background-color: #7986cb;
   }
   98% {
-    background-color: #2196F3;
+    background-color: #2196f3;
   }
   100% {
-    background-color: #039BE5;
+    background-color: #039be5;
   }
 }
 
+#countdown {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 445%;
+  height: 445%;
+  transform: translate(-50%, -50%);
+  z-index: -1000;
+}
+
+.activated #countdown {
+  display: inherit;
+}
+
+#halfclip {
+  width: 50%;
+  height: 100%;
+  right: 0;
+  position: absolute;
+  overflow: hidden;
+  transform-origin: left center;
+
+}
+
+.activated #halfclip {
+  animation: cliprotate 30s steps(2) infinite;
+}
+
+.activated #fixed {
+  animation: showfixed 30s steps(2) infinite;
+}
+
+.activated #clipped {
+  animation: rotate 15s linear infinite;
+}
+
+.halfcircle {
+  box-sizing: border-box;
+  height: 100%;
+  right: 0;
+  position: absolute;
+  border: solid 10px rgba(255, 255, 255, 0.25);
+  border-top-color: transparent;
+  border-left-color: transparent;
+  border-radius: 50%;
+  z-index: -1;
+}
+
+#clipped {
+  width: 200%;
+}
+
+#fixed {
+  width: 100%;
+  transform: rotate(135deg);
+}
+
+@keyframes cliprotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(-45deg);
+  }
+  100% {
+    transform: rotate(135deg);
+  }
+}
+
+@keyframes showfixed {
+  0% {
+    opacity: 1;
+  }
+  49.999% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}

@@ -55,7 +55,7 @@ function toggleTimer () {
 // Make a new tab with a countdown timer for the break
 function startBreak () {
   chrome.tabs.create({
-    url: chrome.runtime.getURL('countdown.html')
+    url: chrome.runtime.getURL('countdown/countdown.html')
   })
 }
 

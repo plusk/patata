@@ -3,7 +3,7 @@ html {
   height: 100%;
   font-family: sans-serif;
   color: white;
-  background: #607d8b url("background.svg") center/contain no-repeat fixed;
+  background: #607d8b url("/img/background.svg") center/contain no-repeat fixed;
 }
 
 #divCenter {

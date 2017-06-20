@@ -1,5 +1,5 @@
 // Set options
-function save_options () {
+function saveOptions () {
   var sessionLength = document.getElementById('sessionLength').value
 
   chrome.storage.sync.set({
@@ -16,7 +16,7 @@ function save_options () {
 }
 
 // Get stored options
-function restore_options () {
+function restoreOptions () {
   chrome.storage.sync.get({
     sessionLength: 25
   }, function (data) {
@@ -25,7 +25,7 @@ function restore_options () {
 }
 
 // Save options when clicking... Save.
-document.getElementById('save').addEventListener('click', save_options)
+document.getElementById('save').addEventListener('click', saveOptions)
 
 // Restore options when loading up the menu
-document.addEventListener('DOMContentLoaded', restore_options)
+document.addEventListener('DOMContentLoaded', restoreOptions)

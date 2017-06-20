@@ -4,7 +4,6 @@ var divCenter = document.getElementById('divCenter')
 var btnGo = document.getElementById('btnGo')
 var timer = document.createElement('p')
 
-
 function tickTimer (length) {
   var min = parseInt(length / 60, 10)
   var sec = parseInt(length % 60, 10)

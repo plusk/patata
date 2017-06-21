@@ -1,11 +1,33 @@
+// Used for fullscreening based on vendor
 var docElement = document.documentElement
 
+// Setup for DOM
 var divCenter = document.getElementById('divCenter')
 var btnGo = document.getElementById('btnGo')
 var divP = document.createElement('div')
 divP.setAttribute('id', 'divP')
 var timer = document.createElement('p')
 divP.appendChild(timer)
+
+var sheet = document.getElementById('sheet').sheet
+
+// Duration of break in seconds
+var duration;
+
+// Set duration of break based on stored data
+chrome.storage.sync.get({
+  breakLength: 5 * 60
+  }, function (data) {
+    // We want duration in seconds
+    duration = data.breakLength * 60
+
+    // Set animations based on duration
+    sheet.insertRule('.activated {animation: colorchange ' + duration + 's infinite;}', 0)
+    sheet.insertRule('.activated #halfclip {animation: cliprotate ' + duration + 's steps(2) infinite;}', 0)
+    sheet.insertRule('.activated #fixed {animation: showfixed ' + duration + 's steps(2) infinite;}', 0)
+    sheet.insertRule('.activated #clipped {animation: rotate ' + duration/2 + 's linear infinite;}', 0)
+  }
+)
 
 // Convert remaining duration to an output string
 function toTimerText (duration) {
@@ -22,8 +44,6 @@ function startBreak () {
   // Replace button with timer
   divCenter.removeChild(btnGo)
   divCenter.appendChild(divP)
-
-  var duration = 30
 
   // Initial string and tick
   timer.textContent = toTimerText(duration)

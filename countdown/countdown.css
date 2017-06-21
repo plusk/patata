@@ -6,10 +6,6 @@ html {
   background: #0097a7 url("/img/background.svg") center/contain no-repeat fixed;
 }
 
-.activated {
-  animation: colorchange 30s infinite;
-}
-
 #divCenter {
   position: fixed;
   top: 50%;
@@ -165,18 +161,6 @@ p {
   overflow: hidden;
   transform-origin: left center;
 
-}
-
-.activated #halfclip {
-  animation: cliprotate 30s steps(2) infinite;
-}
-
-.activated #fixed {
-  animation: showfixed 30s steps(2) infinite;
-}
-
-.activated #clipped {
-  animation: rotate 15s linear infinite;
 }
 
 .halfcircle {

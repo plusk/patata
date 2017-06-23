@@ -18,10 +18,19 @@ var duration
 
 // Set duration of break based on stored data
 chrome.storage.sync.get({
-    breakLength: 5 * 60
+    breakLength: 5,
+    longBreakLength: 15,
+    longBreak: false
   }, function (data) {
-    // We want duration in seconds
-    duration = data.breakLength * 60
+
+    // Get duration based on break type and convert it to seconds
+    if (data.longBreak) {
+      duration = data.longBreakLength * 60
+      chrome.storage.sync.set({longBreak: false})
+    }
+    else {
+      duration = data.breakLength * 60
+    }
 
     // Set animations based on duration
     sheet.insertRule('.activated {animation: colorchange ' + duration + 's infinite;}', 0)

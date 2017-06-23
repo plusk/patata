@@ -2,10 +2,12 @@
 function saveOptions () {
   var sessionLength = document.getElementById('sessionLength').value
   var breakLength = document.getElementById('breakLength').value
+  var longBreakLength = document.getElementById('longBreakLength').value
 
   chrome.storage.sync.set({
       sessionLength: sessionLength,
-      breakLength: breakLength
+      breakLength: breakLength,
+      longBreakLength: longBreakLength
     }, function () {
       // Feedback for user
       var status = document.getElementById('status')
@@ -21,10 +23,12 @@ function saveOptions () {
 function restoreOptions () {
   chrome.storage.sync.get({
     sessionLength: 25,
-    breakLength: 5
+    breakLength: 5,
+    longBreakLength: 15
   }, function (data) {
     document.getElementById('sessionLength').value = data.sessionLength
     document.getElementById('breakLength').value = data.breakLength
+    document.getElementById('longBreakLength').value = data.longBreakLength
   })
 }
 

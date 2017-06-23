@@ -5,10 +5,12 @@ const period = 0.01
 var maxTicks = 25
 var ticks
 
-var alarmed = false
+var activeSession = false
+
+var sessionNr
 
 chrome.browserAction.setBadgeBackgroundColor({
-  color: "#0097A7"
+  color: '#0097A7'
 })
 
 // Set ticks based on settings and move on to start the timer
@@ -16,6 +18,7 @@ function setTimer () {
   chrome.storage.sync.get('sessionLength', function (data) {
     maxTicks = data.sessionLength
     ticks = maxTicks
+    sessionNr = 0
     startTimer()
   })
 }
@@ -31,7 +34,8 @@ function startTimer () {
   chrome.browserAction.setIcon({
     path: 'img/potato.svg'
   })
-  alarmed = true
+  activeSession = true
+  sessionNr++
 }
 
 // Reset timer to square one
@@ -44,12 +48,16 @@ function resetTimer () {
     chrome.browserAction.setIcon({
       path: 'img/potato_off.svg'
     })
-    alarmed = false
+    activeSession = false
   })
 }
 
 // Make a new tab with a countdown timer for the break
 function startBreak () {
+  if (!(sessionNr % 4)) {
+    // Fourth break coming up, mark it as such
+    chrome.storage.sync.set({longBreak: true})
+  }
   chrome.tabs.create({
     url: chrome.runtime.getURL('countdown/countdown.html')
   })
@@ -71,7 +79,7 @@ chrome.alarms.onAlarm.addListener(handleTick)
 
 // When clicking extension, either start or reset timer
 chrome.browserAction.onClicked.addListener(function () {
-  alarmed ? resetTimer() : setTimer()
+  activeSession ? resetTimer() : setTimer()
 })
 
 // Reset timer if options change

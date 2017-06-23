@@ -74,7 +74,7 @@ p {
 }
 
 #btnGo:after {
-  animation: ripple 5s ease-in infinite;
+  animation: ripple 5s ease-in-out infinite;
 }
 
 @keyframes ripple {

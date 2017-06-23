@@ -8,15 +8,17 @@ var divP = document.createElement('div')
 divP.setAttribute('id', 'divP')
 var timer = document.createElement('p')
 divP.appendChild(timer)
+var btnRe = document.getElementById('btnRe')
 
+// Declare sheet for rule insertions
 var sheet = document.getElementById('sheet').sheet
 
 // Duration of break in seconds
-var duration;
+var duration
 
 // Set duration of break based on stored data
 chrome.storage.sync.get({
-  breakLength: 5 * 60
+    breakLength: 5 * 60
   }, function (data) {
     // We want duration in seconds
     duration = data.breakLength * 60
@@ -25,7 +27,7 @@ chrome.storage.sync.get({
     sheet.insertRule('.activated {animation: colorchange ' + duration + 's infinite;}', 0)
     sheet.insertRule('.activated #halfclip {animation: cliprotate ' + duration + 's steps(2) infinite;}', 0)
     sheet.insertRule('.activated #fixed {animation: showfixed ' + duration + 's steps(2) infinite;}', 0)
-    sheet.insertRule('.activated #clipped {animation: rotate ' + duration/2 + 's linear infinite;}', 0)
+    sheet.insertRule('.activated #clipped {animation: rotate ' + duration / 2 + 's linear infinite;}', 0)
   }
 )
 
@@ -53,19 +55,27 @@ function startBreak () {
   var tick = setInterval(function () {
     timer.textContent = toTimerText(duration)
 
-    // Stop ticking at 0 and close the tab
+    // Stop ticking at 0, wait for user input
     if (--duration < 0) {
       clearTimeout(tick)
-      close()
+
+      // Clear out elements we won't use more of
+      divCenter.removeChild(divP)
+      divCenter.removeChild(document.getElementById('countdown'))
+
+      // Turn off style rules tied to this class, namely background color
+      document.getElementById('main').classList.remove('activated')
+
+      // Show the final button
+      btnRe.style.display = 'block'
     }
   }, 1000)
 
-  document.getElementById('main').className += ' activated'
+  document.getElementById('main').classList.add('activated')
 }
 
 // Go fullscreen and start break when ready to go
 btnGo.onclick = function () {
-
   // Browser compatibility filler
   if (docElement.requestFullscreen) {
     docElement.requestFullscreen()
@@ -80,4 +90,10 @@ btnGo.onclick = function () {
     docElement.msRequestFullscreen()
   }
   startBreak()
+}
+
+// Notify background script that break is over before closing
+btnRe.onclick = function () {
+  chrome.runtime.sendMessage({breakOver: true})
+  close()
 }

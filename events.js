@@ -76,3 +76,11 @@ chrome.browserAction.onClicked.addListener(function () {
 
 // Reset timer if options change
 chrome.storage.onChanged.addListener(resetTimer)
+
+// When a message is received
+chrome.runtime.onMessage.addListener(function (request) {
+  // Break is over, next session
+  if (request.breakOver) {
+    startTimer()
+  }
+})

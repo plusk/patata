@@ -13,7 +13,7 @@ html {
   transform: translate(-50%, -50%);
 }
 
-#btnGo {
+button {
   width: 5rem;
   height: 5rem;
 
@@ -26,14 +26,14 @@ html {
   border-radius: 0.25rem;
 
   font-size: 1rem;
+  text-transform: uppercase;
 }
 
-#btnGo:hover {
-  color: #ffc107;
+button:hover, #btnRe:hover {
   border-color: #ffc107;
 }
 
-#btnGo:focus {
+button:focus {
   outline: none;
 }
 
@@ -51,7 +51,7 @@ p {
   margin: 0;
 }
 
-#btnGo, p {
+button, p {
   user-select: none;
   cursor: default;
 }
@@ -75,6 +75,20 @@ p {
 
 #btnGo:after {
   animation: ripple 5s ease-in-out infinite;
+}
+
+#btnRe {
+  display: none;
+  width: 125px;
+  height: 125px;
+  background-image: url('/img/restart.svg');
+  border: 0.25rem solid white;
+  border-radius: 50%;
+  transition: transform 0.5s;
+}
+
+#btnRe:hover {
+  transform: rotate(270deg);
 }
 
 @keyframes ripple {

@@ -105,50 +105,53 @@ button, p {
   0% {
     background-color: #0097a7;
   }
-  7% {
+  6% {
     background-color: #009688;
   }
-  14% {
+  12% {
     background-color: #43a047;
   }
-  21% {
+  18% {
     background-color: #689f38;
   }
-  28% {
+  24% {
     background-color: #afb42b;
   }
-  35% {
+  32% {
     background-color: #fbc02d;
   }
-  42% {
+  40% {
     background-color: #ffa000;
   }
-  49% {
+  46% {
     background-color: #ef6c00;
   }
-  56% {
+  52% {
     background-color: #ff5722;
   }
-  63% {
+  58% {
     background-color: #ef5350;
   }
-  70% {
+  64% {
     background-color: #f06292;
   }
-  77% {
+  70% {
     background-color: #ba68c8;
   }
-  84% {
+  76% {
     background-color: #9575cd;
   }
-  91% {
+  82% {
     background-color: #7986cb;
   }
-  98% {
+  88% {
     background-color: #2196f3;
   }
-  100% {
+  94% {
     background-color: #039be5;
+  }
+  100% {
+    background-color: #0097a7;
   }
 }
 

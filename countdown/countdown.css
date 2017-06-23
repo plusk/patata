@@ -25,12 +25,12 @@ button {
   border: 0.25rem solid white;
   border-radius: 0.25rem;
 
-  font-size: 1rem;
+  font-size: 1.5rem;
   text-transform: uppercase;
 }
 
 button:hover, #btnRe:hover {
-  border-color: #ffc107;
+  border-color: #fbc02d;
 }
 
 button:focus {

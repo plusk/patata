@@ -108,7 +108,12 @@ btnRe.onclick = function () {
 }
 
 // Somewhat of an edge case, close any break tabs if options change to clean up
-chrome.storage.onChanged.addListener(close)
+chrome.storage.onChanged.addListener(function(changes) {
+  // Hacky exception, we use longBreak as a sort of message, so don't close when we change it
+  if(!changes.hasOwnProperty('longBreak')) {
+    close()
+  }
+})
 
 chrome.runtime.onMessage.addListener(function (request) {
   // Another edge case: if timer started during break, close break tab(s)

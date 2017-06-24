@@ -20,6 +20,9 @@ function setTimer () {
     ticks = maxTicks
     sessionNr = 0
     startTimer()
+
+    // Clear break tabs in case there are any open (notable edge case: if timer is set during break)
+    chrome.runtime.sendMessage({clearBreak: true})
   })
 }
 

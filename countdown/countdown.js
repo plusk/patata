@@ -106,3 +106,13 @@ btnRe.onclick = function () {
   chrome.runtime.sendMessage({breakOver: true})
   close()
 }
+
+// Somewhat of an edge case, close any break tabs if options change to clean up
+chrome.storage.onChanged.addListener(close)
+
+chrome.runtime.onMessage.addListener(function (request) {
+  // Another edge case: if timer started during break, close break tab(s)
+  if (request.clearBreak) {
+    close()
+  }
+})

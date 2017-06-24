@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Patata Timer",
-  "version": "1",
+  "version": "1.0",
   "description": "Pomodoro timer, but not, but still.",
   "icons": {
     "16": "img/icon16.png",

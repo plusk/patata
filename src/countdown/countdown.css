@@ -3,7 +3,7 @@ html {
   height: 100%;
   font-family: sans-serif;
   color: white;
-  background: #0097a7 url("/img/background.svg") center/contain no-repeat fixed;
+  background: #0097a7 url("../img/background.svg") center/contain no-repeat fixed;
 }
 
 #divCenter {
@@ -81,7 +81,7 @@ button, p {
   display: none;
   width: 125px;
   height: 125px;
-  background-image: url('/img/restart.svg');
+  background-image: url('../img/restart.svg');
   border: 0.25rem solid white;
   border-radius: 50%;
   transition: transform 0.5s;

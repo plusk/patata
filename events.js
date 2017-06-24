@@ -7,7 +7,7 @@ var ticks
 
 var activeSession = false
 
-var sessionNr
+var sessionNr, sessionRatio
 
 chrome.browserAction.setBadgeBackgroundColor({
   color: '#0097A7'
@@ -15,14 +15,16 @@ chrome.browserAction.setBadgeBackgroundColor({
 
 // Set ticks based on settings and move on to start the timer
 function setTimer () {
-  chrome.storage.sync.get('sessionLength', function (data) {
+  chrome.storage.sync.get(['sessionLength', 'sessionRatio'], function (data) {
     maxTicks = data.sessionLength
     ticks = maxTicks
     sessionNr = 0
-    startTimer()
+    sessionRatio = data.sessionRatio
 
     // Clear break tabs in case there are any open (notable edge case: if timer is set during break)
     chrome.runtime.sendMessage({clearBreak: true})
+
+    startTimer()
   })
 }
 
@@ -57,8 +59,8 @@ function resetTimer () {
 
 // Make a new tab with a countdown timer for the break
 function startBreak () {
-  if (!(sessionNr % 4)) {
-    // Fourth break coming up, mark it as such
+  if (!(sessionNr % sessionRatio)) {
+    // Nth break coming up, mark it as such
     chrome.storage.sync.set({longBreak: true})
   }
   chrome.tabs.create({

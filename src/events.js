@@ -1,13 +1,9 @@
 // Period in minutes
-const period = 0.01
+const period = 1
 
-// Will be overwritten, just a default value
-var maxTicks = 25
-var ticks
+var maxTicks, ticks, sessionNr, sessionRatio
 
 var activeSession = false
-
-var sessionNr, sessionRatio
 
 chrome.browserAction.setBadgeBackgroundColor({
   color: '#0097A7'
@@ -15,7 +11,10 @@ chrome.browserAction.setBadgeBackgroundColor({
 
 // Set ticks based on settings and move on to start the timer
 function setTimer () {
-  chrome.storage.sync.get(['sessionLength', 'sessionRatio'], function (data) {
+  chrome.storage.sync.get({
+    sessionLength: 25,
+    sessionRatio: 4
+  }, function (data) {
     maxTicks = data.sessionLength
     ticks = maxTicks
     sessionNr = 0

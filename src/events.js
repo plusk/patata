@@ -1,4 +1,4 @@
-var ticks, sessionNr
+var ticks
 
 var activeSession = false
 
@@ -12,7 +12,8 @@ function setTimer () {
     sessionLength: 25
   }, function (syncData) {
     ticks = syncData.sessionLength
-    sessionNr = 0
+
+    chrome.storage.local.set({sessionNr: 0})
 
     // Clear break tabs in case there are any open (notable edge case: if timer is set during break)
     chrome.runtime.sendMessage({clearBreak: true})
@@ -33,7 +34,11 @@ function startTimer () {
     path: 'img/potato.svg'
   })
   activeSession = true
-  sessionNr++
+
+  chrome.storage.local.get('sessionNr', function (localData) {
+    chrome.storage.local.set({sessionNr: ++localData.sessionNr})
+  })
+
 }
 
 // Reset timer to square one
@@ -61,14 +66,18 @@ function startBreak () {
   chrome.storage.sync.get({
     sessionRatio: 4
   }, function (syncData) {
-    if (!(sessionNr % syncData.sessionRatio)) {
-      // Nth break coming up, mark it as such
-      chrome.storage.local.set({longBreak: true})
-    }
-  })
+    chrome.storage.local.get('sessionNr', function (localData) {
 
-  chrome.tabs.create({
-    url: chrome.runtime.getURL('countdown/countdown.html')
+      if (!(localData.sessionNr % syncData.sessionRatio)) {
+        // Nth break coming up, mark it as such
+        chrome.storage.local.set({longBreak: true})
+      }
+
+      // Make the tab and with the countdown url
+      chrome.tabs.create({
+        url: chrome.runtime.getURL('countdown/countdown.html')
+      })
+    })
   })
 }
 

@@ -16,27 +16,26 @@ var sheet = document.getElementById('sheet').sheet
 // Duration of break in seconds
 var duration
 
-// Set duration of break based on stored data
+// Set duration of break based on stored syncData
 chrome.storage.sync.get({
     breakLength: 5,
-    longBreakLength: 15,
-    longBreak: false
-  }, function (data) {
-
-    // Get duration based on break type and convert it to seconds
-    if (data.longBreak) {
-      duration = data.longBreakLength * 60
-      chrome.storage.sync.set({longBreak: false})
-    }
-    else {
-      duration = data.breakLength * 60
-    }
-
-    // Set animations based on duration
-    sheet.insertRule('.activated {animation: colorchange ' + duration + 's infinite;}', 0)
-    sheet.insertRule('.activated #halfclip {animation: cliprotate ' + duration + 's steps(2) infinite;}', 0)
-    sheet.insertRule('.activated #fixed {animation: showfixed ' + duration + 's steps(2) infinite;}', 0)
-    sheet.insertRule('.activated #clipped {animation: rotate ' + duration / 2 + 's linear infinite;}', 0)
+    longBreakLength: 15
+  }, function (syncData) {
+    chrome.storage.local.get('longBreak', function (localData) {
+      // Set duration based on break type and convert it to seconds
+      if (localData.longBreak) {
+        duration = syncData.longBreakLength * 60
+        chrome.storage.sync.set({longBreak: false})
+      }
+      else {
+        duration = syncData.breakLength * 60
+      }
+      // Set animations based on duration
+      sheet.insertRule('.activated {animation: colorchange ' + duration + 's infinite;}', 0)
+      sheet.insertRule('.activated #halfclip {animation: cliprotate ' + duration + 's steps(2) infinite;}', 0)
+      sheet.insertRule('.activated #fixed {animation: showfixed ' + duration + 's steps(2) infinite;}', 0)
+      sheet.insertRule('.activated #clipped {animation: rotate ' + duration / 2 + 's linear infinite;}', 0)
+    })
   }
 )
 
@@ -108,9 +107,9 @@ btnRe.onclick = function () {
 }
 
 // Somewhat of an edge case, close any break tabs if options change to clean up
-chrome.storage.onChanged.addListener(function(changes) {
-  // Hacky exception, we use longBreak as a sort of message, so don't close when we change it
-  if(!changes.hasOwnProperty('longBreak')) {
+chrome.storage.onChanged.addListener(function (changes, area) {
+  // If sync storage(options) changed, close any break tabs
+  if (area === 'sync') {
     close()
   }
 })

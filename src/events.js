@@ -63,7 +63,7 @@ function startBreak () {
   }, function (syncData) {
     if (!(sessionNr % syncData.sessionRatio)) {
       // Nth break coming up, mark it as such
-      chrome.storage.sync.set({longBreak: true})
+      chrome.storage.local.set({longBreak: true})
     }
   })
 
@@ -91,8 +91,12 @@ chrome.browserAction.onClicked.addListener(function () {
   activeSession ? resetTimer() : setTimer()
 })
 
-// Reset timer if options change
-chrome.storage.onChanged.addListener(resetTimer)
+// If sync storage(options) changed, reset the timer
+chrome.storage.onChanged.addListener(function (changes, area) {
+  if (area === 'sync') {
+    resetTimer()
+  }
+})
 
 // When a message is received
 chrome.runtime.onMessage.addListener(function (request) {

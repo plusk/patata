@@ -1,7 +1,4 @@
-// Period in minutes
-const period = 1
-
-var maxTicks, ticks, sessionNr, sessionRatio
+var ticks, sessionNr
 
 var activeSession = false
 
@@ -12,13 +9,10 @@ chrome.browserAction.setBadgeBackgroundColor({
 // Set ticks based on settings and move on to start the timer
 function setTimer () {
   chrome.storage.sync.get({
-    sessionLength: 25,
-    sessionRatio: 4
-  }, function (data) {
-    maxTicks = data.sessionLength
-    ticks = maxTicks
+    sessionLength: 25
+  }, function (syncData) {
+    ticks = syncData.sessionLength
     sessionNr = 0
-    sessionRatio = data.sessionRatio
 
     // Clear break tabs in case there are any open (notable edge case: if timer is set during break)
     chrome.runtime.sendMessage({clearBreak: true})
@@ -30,7 +24,7 @@ function setTimer () {
 // Start timer with alarm, badge and icon
 function startTimer () {
   chrome.alarms.create('timer', {
-    'periodInMinutes': period
+    'periodInMinutes': 1
   })
   chrome.browserAction.setBadgeText({
     text: (ticks).toString()
@@ -44,7 +38,12 @@ function startTimer () {
 
 // Reset timer to square one
 function resetTimer () {
-  ticks = maxTicks
+  chrome.storage.sync.get({
+    sessionLength: 25
+  }, function (syncData) {
+    ticks = syncData.sessionLength
+  })
+
   chrome.alarms.clear('timer', function () {
     chrome.browserAction.setBadgeText({
       text: ''
@@ -58,10 +57,16 @@ function resetTimer () {
 
 // Make a new tab with a countdown timer for the break
 function startBreak () {
-  if (!(sessionNr % sessionRatio)) {
-    // Nth break coming up, mark it as such
-    chrome.storage.sync.set({longBreak: true})
-  }
+
+  chrome.storage.sync.get({
+    sessionRatio: 4
+  }, function (syncData) {
+    if (!(sessionNr % syncData.sessionRatio)) {
+      // Nth break coming up, mark it as such
+      chrome.storage.sync.set({longBreak: true})
+    }
+  })
+
   chrome.tabs.create({
     url: chrome.runtime.getURL('countdown/countdown.html')
   })

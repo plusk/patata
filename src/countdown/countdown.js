@@ -22,6 +22,7 @@ chrome.storage.sync.get({
     longBreakLength: 15
   }, function (syncData) {
     chrome.storage.local.get('longBreak', function (localData) {
+
       // Set duration based on break type and convert it to seconds
       if (localData.longBreak) {
         duration = syncData.longBreakLength * 60
@@ -30,6 +31,7 @@ chrome.storage.sync.get({
       else {
         duration = syncData.breakLength * 60
       }
+
       // Set animations based on duration
       sheet.insertRule('.activated {animation: cycleBackground ' + duration + 's infinite;}', 0)
       sheet.insertRule('.activated #halfclip {animation: clipRotate ' + duration + 's steps(2) infinite;}', 0)
@@ -51,6 +53,7 @@ function toTimerText (duration) {
 }
 
 function startBreak () {
+
   // Replace button with timer
   divCenter.removeChild(btnGo)
   divCenter.appendChild(divP)
@@ -84,6 +87,7 @@ function startBreak () {
 
 // Go fullscreen and start break when ready to go
 btnGo.onclick = function () {
+
   // Browser compatibility filler
   if (docElement.requestFullscreen) {
     docElement.requestFullscreen()
@@ -97,6 +101,7 @@ btnGo.onclick = function () {
   else if (docElement.msRequestFullscreen) {
     docElement.msRequestFullscreen()
   }
+
   startBreak()
 }
 
@@ -108,14 +113,13 @@ btnRe.onclick = function () {
 
 // Somewhat of an edge case, close any break tabs if options change to clean up
 chrome.storage.onChanged.addListener(function (changes, area) {
-  // If sync storage(options) changed, close any break tabs
   if (area === 'sync') {
     close()
   }
 })
 
+// Another edge case: if timer started during break, close break tab(s)
 chrome.runtime.onMessage.addListener(function (request) {
-  // Another edge case: if timer started during break, close break tab(s)
   if (request.clearBreak) {
     close()
   }

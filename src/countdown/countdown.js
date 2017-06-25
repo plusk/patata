@@ -31,9 +31,9 @@ chrome.storage.sync.get({
         duration = syncData.breakLength * 60
       }
       // Set animations based on duration
-      sheet.insertRule('.activated {animation: colorchange ' + duration + 's infinite;}', 0)
-      sheet.insertRule('.activated #halfclip {animation: cliprotate ' + duration + 's steps(2) infinite;}', 0)
-      sheet.insertRule('.activated #fixed {animation: showfixed ' + duration + 's steps(2) infinite;}', 0)
+      sheet.insertRule('.activated {animation: cycleBackground ' + duration + 's infinite;}', 0)
+      sheet.insertRule('.activated #halfclip {animation: clipRotate ' + duration + 's steps(2) infinite;}', 0)
+      sheet.insertRule('.activated #fixed {animation: showFixed ' + duration + 's steps(2) infinite;}', 0)
       sheet.insertRule('.activated #clipped {animation: rotate ' + duration / 2 + 's linear infinite;}', 0)
     })
   }

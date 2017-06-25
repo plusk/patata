@@ -101,7 +101,7 @@ button, p {
   }
 }
 
-@keyframes colorchange {
+@keyframes cycleBackground {
   0% {
     background-color: #0097a7;
   }
@@ -201,7 +201,7 @@ button, p {
   transform: rotate(135deg);
 }
 
-@keyframes cliprotate {
+@keyframes clipRotate {
   0% {
     transform: rotate(0deg);
   }
@@ -219,7 +219,7 @@ button, p {
   }
 }
 
-@keyframes showfixed {
+@keyframes showFixed {
   0% {
     opacity: 1;
   }

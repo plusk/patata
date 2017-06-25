@@ -25,7 +25,7 @@ chrome.storage.sync.get({
       // Set duration based on break type and convert it to seconds
       if (localData.longBreak) {
         duration = syncData.longBreakLength * 60
-        chrome.storage.sync.set({longBreak: false})
+        chrome.storage.local.set({longBreak: false})
       }
       else {
         duration = syncData.breakLength * 60
